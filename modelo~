@@ -1,0 +1,47 @@
+Xi: Coordenada en X de la ciudad i
+Yi: Coordenada en Y de la ciudad i
+n: Número de Ciudades
+M: Constante muy grande
+
+
+Di: Distancia de la ciudad i hasta el basurero
+Dxi: Distancia en X de la ciudad i hasta el basurero
+Dyi: Distancia en Y de la ciudad i hasta el basurero
+Bx: Coordenada en X del basurero
+By: Coordenada en Y del basurero
+L: Distancia de la ciudad más cercana al basurero
+
+Nxi = 1 Si Bx >= Dxi
+Nxi = 0 Sino
+
+Nyi = 1 Si By >= Dyi
+Nyi = 0 Sino
+
+
+max z=L
+
+Dxi >= Bx - Xi - M(1-Nxi)
+Dxi <= Bx - Xi + M(1-Nxi)
+Dxi >= Xi - Bx - MNxi
+Dxi <= Xi - Bx + MNxi
+
+Dyi >= By - Yi - M(1-Nyi)
+Dyi <= By - Yi + M(1-Nyi)
+Dyi >= Yi - By - MNyi
+Dyi <= Yi - ey + MNyi
+
+Dxi + Dyi = Di
+
+L <= Di
+
+Obvias
+
+Di >= 0
+Dxi >= 0
+Dyi >= 0
+Bx >= 0
+By >= 0
+L >= 0
+Nxi >= 0
+Nyi >= 0
+
