@@ -4,6 +4,9 @@
  */
 package garbagesimplex;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.javailp.*;
 
 /**
@@ -19,7 +22,13 @@ public class GarbageSimplex {
         SolverFactory factory = new SolverFactoryLpSolve(); // use lp_solve
         factory.setParameter(Solver.VERBOSE, 0);
         factory.setParameter(Solver.TIMEOUT, 100); // set timeout to 100 seconds
-
+        Reader text = new Reader();
+        Problem problem = null;
+        try {
+            problem = text.readProblem(Reader.FILE_NAME);
+        } catch (IOException ex) {
+            Logger.getLogger(GarbageSimplex.class.getName()).log(Level.SEVERE, null, ex);
+        }
         /*
          * Constructing a Problem: Maximize: 143x+60y Subject to: 
          * 120x+210y <= 15000
@@ -28,7 +37,7 @@ public class GarbageSimplex {
          *         
          * With x,y being integers
          *         
-         */
+         
         Problem problem = new Problem();
 
         Linear linear = new Linear();
@@ -57,19 +66,9 @@ public class GarbageSimplex {
 
         problem.setVarType("x", Integer.class);
         problem.setVarType("y", Integer.class);
-
+*/
         Solver solver = factory.get(); // you should use this solver only once for one problem
         Result result = solver.solve(problem);
-
-        System.out.println(result);
-
-        /**
-         * Extend the problem with x <= 16 and solve it again
-         */
-        problem.setVarUpperBound("x", 16);
-
-        solver = factory.get();
-        result = solver.solve(problem);
 
         System.out.println(result);
     }
