@@ -23,33 +23,42 @@ max z=L
 Dxi >= Bx - Xi - M(1-Nxi)
 Xi >= Bx - Dxi - M + MNxi
 Xi + M >= Bx - Dxi + MNxi <<
+-Bx + Dxi - MNxi >= -Xi - M
 
 Dxi <= Bx - Xi + M(1-Nxi)
 Xi >= Bx - Dxi + M - MNxi
 Xi -M >= Bx - Dxi - MNxi <<
+-Bx + Dxi + MNxi >= -Xi + M
 
 Dxi >= Xi - Bx - MNxi
 -Xi >= -Dxi - Bx - MNxi <<
+Dxi + Bx + MNxi >= Xi
 
 Dxi <= Xi - Bx + MNxi
 -Xi <= -Dxi - Bx + MNxi <<
+Dxi + Bx - MNxi <= Xi
 
 Dyi >= By - Yi - M(1-Nyi)
 Yi >= By - Dyi -M + MNyi <<
+-By + Dyi - MNyi >= -Yi - M
 
 Dyi <= By - Yi + M(1-Nyi)
 Yi <= By - Dyi + M - MNyi <<
+-By + Dyi + MNyi <= -Yi + M
 
 Dyi >= Yi - By - MNyi
 -Yi >= -Dyi - By - MNyi <<
+Dyi + By + MNyi >= Yi
 
 Dyi <= Yi - By + MNyi
 -Yi <= -Dyi - By + MNyi <<
-
+Dyi + Byi - MNyi <= Yi
 
 Dxi + Dyi = Di <<
+Dxi + Dyi - Di = 0
 
 L <= Di <<
+L - Di <= 0
 
 Obvias
 
@@ -61,10 +70,4 @@ By >= 0
 L >= 0
 Nxi >= 0
 Nyi >= 0
-
-Modelo Estandarizado
-Sol	L	Di	Dxi	Dyi	Bx	By	Nxi	Nyi
-z	1	0	0	0	0	0	0	0
-Xi+M	0	0	-1	0	0	0	M
-
 
