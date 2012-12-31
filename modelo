@@ -21,18 +21,35 @@ Nyi = 0 Sino
 max z=L
 
 Dxi >= Bx - Xi - M(1-Nxi)
+Xi >= Bx - Dxi - M + MNxi
+Xi + M >= Bx - Dxi + MNxi <<
+
 Dxi <= Bx - Xi + M(1-Nxi)
+Xi >= Bx - Dxi + M - MNxi
+Xi -M >= Bx - Dxi - MNxi <<
+
 Dxi >= Xi - Bx - MNxi
+-Xi >= -Dxi - Bx - MNxi <<
+
 Dxi <= Xi - Bx + MNxi
+-Xi <= -Dxi - Bx + MNxi <<
 
 Dyi >= By - Yi - M(1-Nyi)
+Yi >= By - Dyi -M + MNyi <<
+
 Dyi <= By - Yi + M(1-Nyi)
+Yi <= By - Dyi + M - MNyi <<
+
 Dyi >= Yi - By - MNyi
-Dyi <= Yi - ey + MNyi
+-Yi >= -Dyi - By - MNyi <<
 
-Dxi + Dyi = Di
+Dyi <= Yi - By + MNyi
+-Yi <= -Dyi - By + MNyi <<
 
-L <= Di
+
+Dxi + Dyi = Di <<
+
+L <= Di <<
 
 Obvias
 

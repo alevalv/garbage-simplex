@@ -79,10 +79,11 @@ public class Reader {
             Linear distanciaYi4 = new Linear();
             
             distanciaXi1.add(1, "Bx");
-            distanciaXi1.add(-1, "");
-            distanciaXi1.add(1, "Bx");
+            distanciaXi1.add(-1, "Dx"+i);
+            distanciaXi1.add(M, "Nx"+i);
+            problem.add(distanciaXi1, ">", (ciudades.get(i).get(0) + M));
         }
-        
+        return problem;
     }
     
     public static void main(String... aArgs) throws IOException {
