@@ -26,9 +26,9 @@ Xi + M >= Bx - Dxi + MNxi <<
 -Bx + Dxi - MNxi >= -Xi - M
 
 Dxi <= Bx - Xi + M(1-Nxi)
-Xi >= Bx - Dxi + M - MNxi
-Xi -M >= Bx - Dxi - MNxi <<
--Bx + Dxi + MNxi >= -Xi + M
+Xi <= Bx - Dxi + M - MNxi
+Xi -M <= Bx - Dxi - MNxi <<
+-Bx + Dxi + MNxi <= -Xi + M
 
 Dxi >= Xi - Bx - MNxi
 -Xi >= -Dxi - Bx - MNxi <<
