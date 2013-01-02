@@ -65,7 +65,7 @@ public class Reader {
         Problem problem = new Problem();
         //ecuación a maximizar
         Linear linear = new Linear();
-        linear.add(1, "L");
+        linear.add(1, "DIMIN");
         problem.setObjective(linear, OptType.MAX);
         
         //distancias ciudades
@@ -129,7 +129,7 @@ public class Reader {
             igualdad1.add(-1, "D"+i);
             problem.add(igualdad1, "=", 0);
             
-            menorCiudad.add(1, "L");
+            menorCiudad.add(1, "DIMIN");
             menorCiudad.add(-1, "D"+i);
             problem.add(menorCiudad, "<=", 0);
             
@@ -138,7 +138,7 @@ public class Reader {
             problem.setVarType("Dy"+i, VarType.REAL);
             problem.setVarType("Bx", VarType.REAL);
             problem.setVarType("By", VarType.REAL);
-            problem.setVarType("L", VarType.REAL);
+            problem.setVarType("DIMIN", VarType.REAL);
             problem.setVarType("Nx"+i, VarType.BOOL);
             problem.setVarType("Ny"+i, VarType.BOOL);
             
@@ -147,7 +147,7 @@ public class Reader {
             problem.setVarLowerBound("Dy"+i, 0);
             problem.setVarLowerBound("Bx", 0);
             problem.setVarLowerBound("By", 0);
-            problem.setVarLowerBound("L", 0);
+            problem.setVarLowerBound("DIMIN", 0);
             problem.setVarLowerBound("Nx"+i, 0);
             problem.setVarLowerBound("Ny"+i, 0);
             problem.setVarUpperBound("Bx", 10);

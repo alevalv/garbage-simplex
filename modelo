@@ -9,7 +9,7 @@ Dxi: Distancia en X de la ciudad i hasta el basurero
 Dyi: Distancia en Y de la ciudad i hasta el basurero
 Bx: Coordenada en X del basurero
 By: Coordenada en Y del basurero
-L: Distancia de la ciudad más cercana al basurero
+DIMIN: Distancia de la ciudad más cercana al basurero
 
 Nxi = 1 Si Bx >= Dxi
 Nxi = 0 Sino
@@ -18,7 +18,7 @@ Nyi = 1 Si By >= Dyi
 Nyi = 0 Sino
 
 
-max z=L
+max z=DIMIN
 
 Dxi >= Bx - Xi - M(1-Nxi)
 Xi >= Bx - Dxi - M + MNxi
@@ -57,8 +57,8 @@ Dyi + Byi - MNyi <= Yi
 Dxi + Dyi = Di <<
 Dxi + Dyi - Di = 0
 
-L <= Di <<
-L - Di <= 0
+DIMIN <= Di <<
+DIMIN - Di <= 0
 
 Obvias
 
@@ -67,7 +67,7 @@ Dxi >= 0
 Dyi >= 0
 Bx >= 0
 By >= 0
-L >= 0
+DIMIN >= 0
 Nxi >= 0
 Nyi >= 0
 
