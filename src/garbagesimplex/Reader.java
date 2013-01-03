@@ -24,8 +24,23 @@ import net.sf.javailp.VarType;
  */
 public class Reader {
     
-    public final static String FILE_NAME = "entrada1"; //TODO
+    public final static String FILE_NAME = "prueba2"; //TODO
     private final static Charset ENCODING = StandardCharsets.UTF_8;
+    private int tableroSize;
+
+    public int getTableroSize() {
+        return tableroSize;
+    }
+
+    public int getNumeroCiudades() {
+        return numeroCiudades;
+    }
+
+    public ArrayList<ArrayList<Integer>> getCiudades() {
+        return ciudades;
+    }
+    private int numeroCiudades;
+    private ArrayList<ArrayList<Integer>> ciudades;
 
     private int toInt(String aString){
         return Integer.parseInt(aString);
@@ -49,9 +64,9 @@ public class Reader {
     
     public Problem readProblem(String aFileName) throws IOException {
         List<String> lineas = readTextFile(aFileName);
-        int tableroSize = toInt(lineas.get(0));
-        int numeroCiudades = toInt(lineas.get(1));
-        ArrayList<ArrayList<Integer>> ciudades = new ArrayList<>();
+        tableroSize = toInt(lineas.get(0));
+        numeroCiudades = toInt(lineas.get(1));
+        ciudades = new ArrayList<>();
         for(int i=2;i<numeroCiudades+2;i++){
             ArrayList<String> valoresCiudad = splitString(lineas.get(i));
             ArrayList<Integer> ciudad = new ArrayList<>(2);
@@ -150,8 +165,8 @@ public class Reader {
             problem.setVarLowerBound("DIMIN", 0);
             problem.setVarLowerBound("Nx"+i, 0);
             problem.setVarLowerBound("Ny"+i, 0);
-            problem.setVarUpperBound("Bx", 10);
-            problem.setVarUpperBound("By", 10);
+            problem.setVarUpperBound("Bx", tableroSize);
+            problem.setVarUpperBound("By", tableroSize);
         }
         return problem;
     }
