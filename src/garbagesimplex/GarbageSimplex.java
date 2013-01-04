@@ -48,12 +48,13 @@ public class GarbageSimplex extends JFrame implements ActionListener{
     private Reader text = new Reader();
     private Problem problem = null;
     private JFileChooser selector;
-    private JButton resolver;
+    private JButton btnSimplex,btnBranchAndBound;
     private JLabel xBasurero,yBasurero,distancia,tiempoEjecucion;
     private JPanel pDatos,grilla;
     private DecimalFormat redondear = new DecimalFormat("#.##");
     private JLayeredPane tablero;
     private JPanel[][] casillas;
+    private BranchAndBound branchAndBound;
     private int regionSize;
     
     public GarbageSimplex(){
@@ -67,20 +68,24 @@ public class GarbageSimplex extends JFrame implements ActionListener{
         factory.setParameter(Solver.VERBOSE, 0);
         factory.setParameter(Solver.TIMEOUT, 100); // set timeout to 100 seconds
         
-        pDatos = new JPanel(new GridLayout(5,1));
+        pDatos = new JPanel(new GridLayout(6,1,5,5));
         xBasurero = new JLabel("Coordenada X: ");
         yBasurero = new JLabel("Coordenada Y: ");
         distancia = new JLabel("Distancia : ");
         tiempoEjecucion = new JLabel("Tiempo de ejecucion: ");
-        resolver = new JButton("Resolver Problema");
-        resolver.setEnabled(false);
-        resolver.addActionListener(GarbageSimplex.this);
+        btnSimplex = new JButton("Resolver con Simplex");
+        btnSimplex.setEnabled(false);
+        btnSimplex.addActionListener(GarbageSimplex.this);
+        btnBranchAndBound = new JButton("Resolver con Branch&Bound");
+        btnBranchAndBound.setEnabled(false);
+        btnBranchAndBound.addActionListener(GarbageSimplex.this);
         
         pDatos.add(xBasurero);
         pDatos.add(yBasurero);
         pDatos.add(distancia);
         pDatos.add(tiempoEjecucion);
-        pDatos.add(resolver);
+        pDatos.add(btnSimplex);
+        pDatos.add(btnBranchAndBound);
         
         selector = new JFileChooser(".");
         
@@ -215,7 +220,8 @@ public class GarbageSimplex extends JFrame implements ActionListener{
                         ciudad.setBackground(Color.green);
                     }
                     validate();
-                    resolver.setEnabled(true);
+                    btnSimplex.setEnabled(true);
+                    btnBranchAndBound.setEnabled(true);
                 } catch (Exception ex) {
                    JOptionPane.showMessageDialog(this, "El archivo seleccionado es ilegible", "Error en el formato del archivo", JOptionPane.ERROR_MESSAGE);
                 }
@@ -223,7 +229,7 @@ public class GarbageSimplex extends JFrame implements ActionListener{
             }
         }
         
-        if(e.getSource().equals(resolver)) {
+        if(e.getSource().equals(btnSimplex)) {
             Solver solver = factory.get(); // you should use this solver only once for one problem
             long tAntes = System.currentTimeMillis();
             Result result = solver.solve(problem);
@@ -236,6 +242,19 @@ public class GarbageSimplex extends JFrame implements ActionListener{
             distancia.setText("Distancia : " + redondear.format(result.getObjective()));
             pack();
             System.out.println(result);
+        }
+        
+        if(e.getSource().equals(btnBranchAndBound)){
+            branchAndBound = new BranchAndBound();
+            long tAntes = System.currentTimeMillis();
+            double[] resultado = branchAndBound.runBranchAndBound(problem, text.getNumeroCiudades());
+            long tDespues = System.currentTimeMillis();
+            xBasurero.setText("Coordenada X: "+ redondear.format(resultado[0]));
+            yBasurero.setText("Coordenada Y: "+ redondear.format(resultado[1]));
+            distancia.setText("Distancia : " +redondear.format(resultado[2]));
+            tiempoEjecucion.setText("Tiempo de ejecucion: "+(tDespues - tAntes)+" ms");
+            casillas[regionSize - (int)resultado[1]][(int)resultado[0]].setBackground(Color.blue);
+            pack();
         }
         
         if(e.getSource().equals(autores)){

@@ -93,9 +93,10 @@ public class BranchAndBound {
                 }        
             }
         }
-        double[] salida = new double[2];
+        double[] salida = new double[3];
         salida[0] = Bx;
         salida[1] = By;
+        salida[2] = cota;
         return salida;
     }
 }
