@@ -182,43 +182,44 @@ public class GarbageSimplex extends JFrame implements ActionListener{
                 File archivoProblema = selector.getSelectedFile();
                 try {
                     problem = text.readProblem(archivoProblema.getAbsolutePath());
-                } catch (IOException ex) {
-                    Logger.getLogger(GarbageSimplex.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                tablero.removeAll();
-                xBasurero.setText("Coordenada X: ");
-                yBasurero.setText("Coordenada Y: ");
-                distancia.setText("Distancia: ");
-                tiempoEjecucion.setText("Tiempo de ejecucion: ");
-                grilla = new JPanel();
-                tablero.add(grilla, JLayeredPane.DEFAULT_LAYER);
-                regionSize = text.getTableroSize();
-                int grillaSize = regionSize+1;
-                casillas = new JPanel[grillaSize][grillaSize];
-                grilla.setLayout(new GridLayout(grillaSize,grillaSize));
-                grilla.setPreferredSize(tablero.getPreferredSize());
-                grilla.setBounds(0, 0, tablero.getPreferredSize().width, tablero.getPreferredSize().height);
-                ArrayList<ArrayList<Integer>> ciudades = text.getCiudades();
-                for (int i = 0; i < grillaSize; i++) {
-                    for (int j = 0; j < grillaSize; j++) {
-                        casillas[i][j] = new JPanel();
-                        casillas[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
-                        casillas[i][j].setToolTipText("("+j+","+(regionSize-i)+")");
-                        grilla.add(casillas[i][j]);
+                    tablero.removeAll();
+                    xBasurero.setText("Coordenada X: ");
+                    yBasurero.setText("Coordenada Y: ");
+                    distancia.setText("Distancia: ");
+                    tiempoEjecucion.setText("Tiempo de ejecucion: ");
+                    grilla = new JPanel();
+                    tablero.add(grilla, JLayeredPane.DEFAULT_LAYER);
+                    regionSize = text.getTableroSize();
+                    int grillaSize = regionSize+1;
+                    casillas = new JPanel[grillaSize][grillaSize];
+                    grilla.setLayout(new GridLayout(grillaSize,grillaSize));
+                    grilla.setPreferredSize(tablero.getPreferredSize());
+                    grilla.setBounds(0, 0, tablero.getPreferredSize().width, tablero.getPreferredSize().height);
+                    ArrayList<ArrayList<Integer>> ciudades = text.getCiudades();
+                    for (int i = 0; i < grillaSize; i++) {
+                        for (int j = 0; j < grillaSize; j++) {
+                            casillas[i][j] = new JPanel();
+                            casillas[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
+                            casillas[i][j].setToolTipText("("+j+","+(regionSize-i)+")");
+                            grilla.add(casillas[i][j]);
+                        }
+
                     }
-                    
+
+                    for (int i = 0; i < ciudades.size(); i++) {
+                        int x = (ciudades.get(i).get(0));
+                        int y = regionSize - ciudades.get(i).get(1);
+                        JPanel ciudad = casillas[y][x];
+                        JLabel numero = new JLabel(String.valueOf(i+1));
+                        ciudad.add(numero);
+                        ciudad.setBackground(Color.green);
+                    }
+                    validate();
+                    resolver.setEnabled(true);
+                } catch (Exception ex) {
+                   JOptionPane.showMessageDialog(this, "El archivo seleccionado es ilegible", "Error en el formato del archivo", JOptionPane.ERROR_MESSAGE);
                 }
                 
-                for (int i = 0; i < ciudades.size(); i++) {
-                    int x = (ciudades.get(i).get(0));
-                    int y = regionSize - ciudades.get(i).get(1);
-                    JPanel ciudad = casillas[y][x];
-                    JLabel numero = new JLabel(String.valueOf(i+1));
-                    ciudad.add(numero);
-                    ciudad.setBackground(Color.green);
-                }
-                validate();
-                resolver.setEnabled(true);
             }
         }
         
