@@ -49,7 +49,7 @@ public class GarbageSimplex extends JFrame implements ActionListener{
     private Problem problem = null;
     private JFileChooser selector;
     private JButton resolver;
-    private JLabel xBasurero,yBasurero,distancia;
+    private JLabel xBasurero,yBasurero,distancia,tiempoEjecucion;
     private JPanel pDatos,grilla;
     private DecimalFormat redondear = new DecimalFormat("#.##");
     private JLayeredPane tablero;
@@ -67,10 +67,11 @@ public class GarbageSimplex extends JFrame implements ActionListener{
         factory.setParameter(Solver.VERBOSE, 0);
         factory.setParameter(Solver.TIMEOUT, 100); // set timeout to 100 seconds
         
-        pDatos = new JPanel(new GridLayout(4,1));
+        pDatos = new JPanel(new GridLayout(5,1));
         xBasurero = new JLabel("Coordenada X: ");
         yBasurero = new JLabel("Coordenada Y: ");
         distancia = new JLabel("Distancia : ");
+        tiempoEjecucion = new JLabel("Tiempo de ejecucion: ");
         resolver = new JButton("Resolver Problema");
         resolver.setEnabled(false);
         resolver.addActionListener(GarbageSimplex.this);
@@ -78,6 +79,7 @@ public class GarbageSimplex extends JFrame implements ActionListener{
         pDatos.add(xBasurero);
         pDatos.add(yBasurero);
         pDatos.add(distancia);
+        pDatos.add(tiempoEjecucion);
         pDatos.add(resolver);
         
         selector = new JFileChooser(".");
@@ -184,6 +186,10 @@ public class GarbageSimplex extends JFrame implements ActionListener{
                     Logger.getLogger(GarbageSimplex.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 tablero.removeAll();
+                xBasurero.setText("Coordenada X: ");
+                yBasurero.setText("Coordenada Y: ");
+                distancia.setText("Distancia: ");
+                tiempoEjecucion.setText("Tiempo de ejecucion: ");
                 grilla = new JPanel();
                 tablero.add(grilla, JLayeredPane.DEFAULT_LAYER);
                 regionSize = text.getTableroSize();
@@ -218,7 +224,11 @@ public class GarbageSimplex extends JFrame implements ActionListener{
         
         if(e.getSource().equals(resolver)) {
             Solver solver = factory.get(); // you should use this solver only once for one problem
+            long tAntes = System.currentTimeMillis();
             Result result = solver.solve(problem);
+            long tDespues = System.currentTimeMillis();
+            
+            tiempoEjecucion.setText("Tiempo de ejecucion: "+(tDespues - tAntes)+" ms");
             xBasurero.setText("Coordenada X: " + redondear.format(result.get("Bx")));
             yBasurero.setText("Coordenada Y: " + redondear.format(result.get("By")));
             casillas[regionSize - Integer.parseInt(redondear.format(result.get("By").intValue()))][Integer.parseInt(redondear.format(result.get("Bx").intValue()))].setBackground(Color.red);
