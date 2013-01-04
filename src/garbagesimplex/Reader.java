@@ -16,6 +16,10 @@ import java.util.StringTokenizer;
 import net.sf.javailp.Linear;
 import net.sf.javailp.OptType;
 import net.sf.javailp.Problem;
+import net.sf.javailp.Result;
+import net.sf.javailp.Solver;
+import net.sf.javailp.SolverFactory;
+import net.sf.javailp.SolverFactoryLpSolve;
 import net.sf.javailp.VarType;
 
 /**
@@ -171,4 +175,10 @@ public class Reader {
         return problem;
     }
     
+    public static void main(String[] args) throws IOException{
+        BranchAndBound mibyb = new BranchAndBound();
+        double[]  salida = mibyb.runBranchAndBound(new Reader().readProblem("prueba1"), 4);
+        System.out.println(salida[0]);
+        System.out.println(salida[1]);
+    }    
 }
