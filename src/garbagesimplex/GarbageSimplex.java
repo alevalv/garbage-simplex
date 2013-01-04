@@ -197,6 +197,7 @@ public class GarbageSimplex extends JFrame implements ActionListener{
                     for (int j = 0; j < grillaSize; j++) {
                         casillas[i][j] = new JPanel();
                         casillas[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
+                        casillas[i][j].setToolTipText("("+j+","+(regionSize-i)+")");
                         grilla.add(casillas[i][j]);
                     }
                     
@@ -204,7 +205,7 @@ public class GarbageSimplex extends JFrame implements ActionListener{
                 
                 for (int i = 0; i < ciudades.size(); i++) {
                     int x = (ciudades.get(i).get(0));
-                    int y = Math.abs(ciudades.get(i).get(1)-regionSize);
+                    int y = regionSize - ciudades.get(i).get(1);
                     JPanel ciudad = casillas[y][x];
                     JLabel numero = new JLabel(String.valueOf(i+1));
                     ciudad.add(numero);
@@ -220,7 +221,7 @@ public class GarbageSimplex extends JFrame implements ActionListener{
             Result result = solver.solve(problem);
             xBasurero.setText("Coordenada X: " + redondear.format(result.get("Bx")));
             yBasurero.setText("Coordenada Y: " + redondear.format(result.get("By")));
-            casillas[Math.abs(Integer.parseInt(redondear.format(result.get("By")))-regionSize)][Integer.parseInt(redondear.format(result.get("Bx")))].setBackground(Color.red);
+            casillas[regionSize - Integer.parseInt(redondear.format(result.get("By").intValue()))][Integer.parseInt(redondear.format(result.get("Bx").intValue()))].setBackground(Color.red);
             distancia.setText("Distancia : " + redondear.format(result.getObjective()));
             pack();
             System.out.println(result);
